@@ -1,6 +1,7 @@
 """Storage state watchdog for managing browser cookies and storage persistence."""
 
 import asyncio
+import anyio
 import json
 import os
 from pathlib import Path
@@ -245,7 +246,6 @@ class StorageStateWatchdog(BaseWatchdog):
 		elif load_path and os.path.exists(str(load_path)):
 			# Read from file
 			try:
-				import anyio
 				content = await anyio.Path(str(load_path)).read_text()
 				storage = json.loads(content)
 			except Exception as e:
